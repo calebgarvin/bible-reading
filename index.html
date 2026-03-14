@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M’Cheyne Bible Reading Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'EB Garamond', 'Georgia', serif;
+    background-color: #f5f0e8;
+    color: #3b2f1e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 1rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .container {
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.2rem;
+    color: #2a1f0e;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #6b5a42;
+    margin-bottom: 0.4rem;
+  }
+
+  .plan-link {
+    margin-bottom: 1.5rem;
+  }
+
+  .plan-link a {
+    font-size: 0.8rem;
+    color: #a89878;
+    text-decoration: none;
+  }
+
+  .plan-link a:hover {
+    color: #6b5a42;
+    text-decoration: underline;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .nav button {
+    background: none;
+    border: 1px solid #c4b79a;
+    color: #6b5a42;
+    font-size: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .nav button svg {
+    width: 0.9rem;
+    height: 0.9rem;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nav button:hover {
+    background-color: #e6ddd0;
+    color: #3b2f1e;
+  }
+
+  .date-display {
+    font-size: 1.35rem;
+    font-weight: 600;
+    min-width: 10rem;
+    color: #2a1f0e;
+  }
+
+  .today-label {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #8a7a62;
+    margin-top: 0.1rem;
+    height: 1.2em;
+  }
+
+  .card {
+    background-color: #faf6ef;
+    border: 1px solid #d9cebc;
+    border-radius: 6px;
+    padding: 1.3rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #8a7a62;
+    margin-bottom: 0.6rem;
+  }
+
+  .reading {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: #2a1f0e;
+  }
+
+  .divider {
+    width: 2.5rem;
+    height: 1px;
+    background-color: #c4b79a;
+    margin: 0 auto;
+    margin-top: 1.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .footer a {
+    font-size: 0.75rem;
+    color: #a89878;
+    font-style: italic;
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    color: #6b5a42;
+    text-decoration: underline;
+  }
+
+  .return-today {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    color: #8a7a62;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 0.15rem;
+    height: 1.6em;
+    visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .return-today:hover {
+    color: #3b2f1e;
+  }
+
+  /* Dark mode */
+  body.dark {
+    background-color: #1a1a1a;
+    color: #d4c8b0;
+  }
+  body.dark h1 { color: #e8dcc8; }
+  body.dark .subtitle { color: #9a8a6e; }
+  body.dark .date-display { color: #e8dcc8; }
+  body.dark .today-label { color: #9a8a6e; }
+  body.dark .card {
+    background-color: #252525;
+    border-color: #3a3428;
+  }
+  body.dark .card-label { color: #9a8a6e; }
+  body.dark .reading { color: #e8dcc8; }
+  body.dark .nav button {
+    border-color: #4a3f30;
+    color: #9a8a6e;
+  }
+  body.dark .nav button:hover {
+    background-color: #2a2520;
+    color: #e8dcc8;
+  }
+  body.dark .divider { background-color: #4a3f30; }
+  body.dark .footer a { color: #7a6e58; }
+  body.dark .footer a:hover { color: #b0a080; }
+  body.dark .return-today { color: #9a8a6e; }
+  body.dark .return-today:hover { color: #e8dcc8; }
+  body.dark .plan-link a { color: #7a6e58; }
+  body.dark .plan-link a:hover { color: #b0a080; }
+  body.dark .dark-toggle {
+    border-color: #4a3f30;
+    color: #9a8a6e;
+  }
+  body.dark .dark-toggle:hover {
+    background-color: #2a2520;
+    color: #e8dcc8;
+  }
+
+  /* Dark mode for table pages */
+  body.dark table { background-color: #252525; border-color: #3a3428; }
+  body.dark thead th { background-color: #2a2520; color: #9a8a6e; border-color: #3a3428; }
+  body.dark td { color: #e8dcc8; border-color: #302a20; }
+  body.dark tr:hover td { background-color: #2a2520; }
+  body.dark tr.today td { background-color: #332d20; }
+  body.dark .back-link { color: #9a8a6e; }
+  body.dark .back-link:hover { color: #e8dcc8; }
+
+  .dark-toggle {
+    position: fixed;
+    top: 0.8rem;
+    right: 0.8rem;
+    background: none;
+    border: 1px solid #c4b79a;
+    color: #6b5a42;
+    font-size: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 10;
+    transition: background-color 0.15s, color 0.15s;
+  }
+  .dark-toggle:hover {
+    background-color: #e6ddd0;
+    color: #3b2f1e;
+  }
+  .dark-toggle svg {
+    width: 1rem;
+    height: 1rem;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+</style>
+</head>
+<body>
+
+<button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
+
+<div class="container">
+  <h1>M’Cheyne Reading Plan</h1>
+  <p class="subtitle">Daily Bible Reading</p>
+  <div class="nav">
+    <button id="prev" aria-label="Previous day"><svg viewBox="0 0 12 12"><polyline points="8,2 4,6 8,10"/></svg></button>
+    <div>
+      <div class="date-display" id="dateDisplay"></div>
+      <div class="today-label" id="todayLabel"></div>
+    </div>
+    <button id="next" aria-label="Next day"><svg viewBox="0 0 12 12"><polyline points="4,2 8,6 4,10"/></svg></button>
+  </div>
+
+  <button class="return-today" id="returnToday">Return to today</button>
+
+  <div class="card">
+    <div class="card-label">Family</div>
+    <div class="reading" id="familyReadings"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-label">Secret</div>
+    <div class="reading" id="secretReadings"></div>
+  </div>
+
+  <div class="divider"></div>
+  <p class="footer"><a href="calendar.html">Complete Robert Murray M’Cheyne’s Bible Reading Calendar &rarr;</a></p>
+  <p class="plan-link" style="margin-top:0.6rem;margin-bottom:0"><a href="lfbc.html">LFBC 2026 Reading Plan &rarr;</a></p>
+</div>
+
+<script>
+const R=[[1, 1, "Genesis 1", "Matthew 1", "Ezra 1", "Acts 1"], [1, 2, "Genesis 2", "Matthew 2", "Ezra 2", "Acts 2"], [1, 3, "Genesis 3", "Matthew 3", "Ezra 3", "Acts 3"], [1, 4, "Genesis 4", "Matthew 4", "Ezra 4", "Acts 4"], [1, 5, "Genesis 5", "Matthew 5", "Ezra 5", "Acts 5"], [1, 6, "Genesis 6", "Matthew 6", "Ezra 6", "Acts 6"], [1, 7, "Genesis 7", "Matthew 7", "Ezra 7", "Acts 7"], [1, 8, "Genesis 8", "Matthew 8", "Ezra 8", "Acts 8"], [1, 9, "Genesis 9-10", "Matthew 9", "Ezra 9", "Acts 9"], [1, 10, "Genesis 11", "Matthew 10", "Ezra 10", "Acts 10"], [1, 11, "Genesis 12", "Matthew 11", "Nehemiah 1", "Acts 11"], [1, 12, "Genesis 13", "Matthew 12", "Nehemiah 2", "Acts 12"], [1, 13, "Genesis 14", "Matthew 13", "Nehemiah 3", "Acts 13"], [1, 14, "Genesis 15", "Matthew 14", "Nehemiah 4", "Acts 14"], [1, 15, "Genesis 16", "Matthew 15", "Nehemiah 5", "Acts 15"], [1, 16, "Genesis 17", "Matthew 16", "Nehemiah 6", "Acts 16"], [1, 17, "Genesis 18", "Matthew 17", "Nehemiah 7", "Acts 17"], [1, 18, "Genesis 19", "Matthew 18", "Nehemiah 8", "Acts 18"], [1, 19, "Genesis 20", "Matthew 19", "Nehemiah 9", "Acts 19"], [1, 20, "Genesis 21", "Matthew 20", "Nehemiah 10", "Acts 20"], [1, 21, "Genesis 22", "Matthew 21", "Nehemiah 11", "Acts 21"], [1, 22, "Genesis 23", "Matthew 22", "Nehemiah 12", "Acts 22"], [1, 23, "Genesis 24", "Matthew 23", "Nehemiah 13", "Acts 23"], [1, 24, "Genesis 25", "Matthew 24", "Esther 1", "Acts 24"], [1, 25, "Genesis 26", "Matthew 25", "Esther 2", "Acts 25"], [1, 26, "Genesis 27", "Matthew 26", "Esther 3", "Acts 26"], [1, 27, "Genesis 28", "Matthew 27", "Esther 4", "Acts 27"], [1, 28, "Genesis 29", "Matthew 28", "Esther 5", "Acts 28"], [1, 29, "Genesis 30", "Mark 1", "Esther 6", "Romans 1"], [1, 30, "Genesis 31", "Mark 2", "Esther 7", "Romans 2"], [1, 31, "Genesis 32", "Mark 3", "Esther 8", "Romans 3"], [2, 1, "Genesis 33", "Mark 4", "Esther 9-10", "Romans 4"], [2, 2, "Genesis 34", "Mark 5", "Job 1", "Romans 5"], [2, 3, "Genesis 35-36", "Mark 6", "Job 2", "Romans 6"], [2, 4, "Genesis 37", "Mark 7", "Job 3", "Romans 7"], [2, 5, "Genesis 38", "Mark 8", "Job 4", "Romans 8"], [2, 6, "Genesis 39", "Mark 9", "Job 5", "Romans 9"], [2, 7, "Genesis 40", "Mark 10", "Job 6", "Romans 10"], [2, 8, "Genesis 41", "Mark 11", "Job 7", "Romans 11"], [2, 9, "Genesis 42", "Mark 12", "Job 8", "Romans 12"], [2, 10, "Genesis 43", "Mark 13", "Job 9", "Romans 13"], [2, 11, "Genesis 44", "Mark 14", "Job 10", "Romans 14"], [2, 12, "Genesis 45", "Mark 15", "Job 11", "Romans 15"], [2, 13, "Genesis 46", "Mark 16", "Job 12", "Romans 16"], [2, 14, "Genesis 47", "Luke 1:1-38", "Job 13", "1 Corinthians 1"], [2, 15, "Genesis 48", "Luke 1:39-80", "Job 14", "1 Corinthians 2"], [2, 16, "Genesis 49", "Luke 2", "Job 15", "1 Corinthians 3"], [2, 17, "Genesis 50", "Luke 3", "Job 16-17", "1 Corinthians 4"], [2, 18, "Exodus 1", "Luke 4", "Job 18", "1 Corinthians 5"], [2, 19, "Exodus 2", "Luke 5", "Job 19", "1 Corinthians 6"], [2, 20, "Exodus 3", "Luke 6", "Job 20", "1 Corinthians 7"], [2, 21, "Exodus 4", "Luke 7", "Job 21", "1 Corinthians 8"], [2, 22, "Exodus 5", "Luke 8", "Job 22", "1 Corinthians 9"], [2, 23, "Exodus 6", "Luke 9", "Job 23", "1 Corinthians 10"], [2, 24, "Exodus 7", "Luke 10", "Job 24", "1 Corinthians 11"], [2, 25, "Exodus 8", "Luke 11", "Job 25-26", "1 Corinthians 12"], [2, 26, "Exodus 9", "Luke 12", "Job 27", "1 Corinthians 13"], [2, 27, "Exodus 10", "Luke 13", "Job 28", "1 Corinthians 14"], [2, 28, "Exodus 11:1-12:20", "Luke 14", "Job 29", "1 Corinthians 15"], [3, 1, "Exodus 12:21-50", "Luke 15", "Job 30", "1 Corinthians 16"], [3, 2, "Exodus 13", "Luke 16", "Job 31", "2 Corinthians 1"], [3, 3, "Exodus 14", "Luke 17", "Job 32", "2 Corinthians 2"], [3, 4, "Exodus 15", "Luke 18", "Job 33", "2 Corinthians 3"], [3, 5, "Exodus 16", "Luke 19", "Job 34", "2 Corinthians 4"], [3, 6, "Exodus 17", "Luke 20", "Job 35", "2 Corinthians 5"], [3, 7, "Exodus 18", "Luke 21", "Job 36", "2 Corinthians 6"], [3, 8, "Exodus 19", "Luke 22", "Job 37", "2 Corinthians 7"], [3, 9, "Exodus 20", "Luke 23", "Job 38", "2 Corinthians 8"], [3, 10, "Exodus 21", "Luke 24", "Job 39", "2 Corinthians 9"], [3, 11, "Exodus 22", "John 1", "Job 40", "2 Corinthians 10"], [3, 12, "Exodus 23", "John 2", "Job 41", "2 Corinthians 11"], [3, 13, "Exodus 24", "John 3", "Job 42", "2 Corinthians 12"], [3, 14, "Exodus 25", "John 4", "Proverbs 1", "2 Corinthians 13"], [3, 15, "Exodus 26", "John 5", "Proverbs 2", "Galatians 1"], [3, 16, "Exodus 27", "John 6", "Proverbs 3", "Galatians 2"], [3, 17, "Exodus 28", "John 7", "Proverbs 4", "Galatians 3"], [3, 18, "Exodus 29", "John 8", "Proverbs 5", "Galatians 4"], [3, 19, "Exodus 30", "John 9", "Proverbs 6", "Galatians 5"], [3, 20, "Exodus 31", "John 10", "Proverbs 7", "Galatians 6"], [3, 21, "Exodus 32", "John 11", "Proverbs 8", "Ephesians 1"], [3, 22, "Exodus 33", "John 12", "Proverbs 9", "Ephesians 2"], [3, 23, "Exodus 34", "John 13", "Proverbs 10", "Ephesians 3"], [3, 24, "Exodus 35", "John 14", "Proverbs 11", "Ephesians 4"], [3, 25, "Exodus 36", "John 15", "Proverbs 12", "Ephesians 5"], [3, 26, "Exodus 37", "John 16", "Proverbs 13", "Ephesians 6"], [3, 27, "Exodus 38", "John 17", "Proverbs 14", "Philippians 1"], [3, 28, "Exodus 39", "John 18", "Proverbs 15", "Philippians 2"], [3, 29, "Exodus 40", "John 19", "Proverbs 16", "Philippians 3"], [3, 30, "Leviticus 1", "John 20", "Proverbs 17", "Philippians 4"], [3, 31, "Leviticus 2-3", "John 21", "Proverbs 18", "Colossians 1"], [4, 1, "Leviticus 4", "Psalm 1-2", "Proverbs 19", "Colossians 2"], [4, 2, "Leviticus 5", "Psalm 3-4", "Proverbs 20", "Colossians 3"], [4, 3, "Leviticus 6", "Psalm 5-6", "Proverbs 21", "Colossians 4"], [4, 4, "Leviticus 7", "Psalm 7-8", "Proverbs 22", "1 Thessalonians 1"], [4, 5, "Leviticus 8", "Psalm 9", "Proverbs 23", "1 Thessalonians 2"], [4, 6, "Leviticus 9", "Psalm 10", "Proverbs 24", "1 Thessalonians 3"], [4, 7, "Leviticus 10", "Psalm 11-12", "Proverbs 25", "1 Thessalonians 4"], [4, 8, "Leviticus 11-12", "Psalm 13-14", "Proverbs 26", "1 Thessalonians 5"], [4, 9, "Leviticus 13", "Psalm 15-16", "Proverbs 27", "2 Thessalonians 1"], [4, 10, "Leviticus 14", "Psalm 17", "Proverbs 28", "2 Thessalonians 2"], [4, 11, "Leviticus 15", "Psalm 18", "Proverbs 29", "2 Thessalonians 3"], [4, 12, "Leviticus 16", "Psalm 19", "Proverbs 30", "1 Timothy 1"], [4, 13, "Leviticus 17", "Psalm 20-21", "Proverbs 31", "1 Timothy 2"], [4, 14, "Leviticus 18", "Psalm 22", "Ecclesiastes 1", "1 Timothy 3"], [4, 15, "Leviticus 19", "Psalm 23-24", "Ecclesiastes 2", "1 Timothy 4"], [4, 16, "Leviticus 20", "Psalm 25", "Ecclesiastes 3", "1 Timothy 5"], [4, 17, "Leviticus 21", "Psalm 26-27", "Ecclesiastes 4", "1 Timothy 6"], [4, 18, "Leviticus 22", "Psalm 28-29", "Ecclesiastes 5", "2 Timothy 1"], [4, 19, "Leviticus 23", "Psalm 30", "Ecclesiastes 6", "2 Timothy 2"], [4, 20, "Leviticus 24", "Psalm 31", "Ecclesiastes 7", "2 Timothy 3"], [4, 21, "Leviticus 25", "Psalm 32", "Ecclesiastes 8", "2 Timothy 4"], [4, 22, "Leviticus 26", "Psalm 33", "Ecclesiastes 9", "Titus 1"], [4, 23, "Leviticus 27", "Psalm 34", "Ecclesiastes 10", "Titus 2"], [4, 24, "Numbers 1", "Psalm 35", "Ecclesiastes 11", "Titus 3"], [4, 25, "Numbers 2", "Psalm 36", "Ecclesiastes 12", "Philemon 1"], [4, 26, "Numbers 3", "Psalm 37", "Song of Solomon 1", "Hebrews 1"], [4, 27, "Numbers 4", "Psalm 38", "Song of Solomon 2", "Hebrews 2"], [4, 28, "Numbers 5", "Psalm 39", "Song of Solomon 3", "Hebrews 3"], [4, 29, "Numbers 6", "Psalm 40-41", "Song of Solomon 4", "Hebrews 4"], [4, 30, "Numbers 7", "Psalm 42-43", "Song of Solomon 5", "Hebrews 5"], [5, 1, "Numbers 8", "Psalm 44", "Song of Solomon 6", "Hebrews 6"], [5, 2, "Numbers 9", "Psalm 45", "Song of Solomon 7", "Hebrews 7"], [5, 3, "Numbers 10", "Psalm 46-47", "Song of Solomon 8", "Hebrews 8"], [5, 4, "Numbers 11", "Psalm 48", "Isaiah 1", "Hebrews 9"], [5, 5, "Numbers 12-13", "Psalm 49", "Isaiah 2", "Hebrews 10"], [5, 6, "Numbers 14", "Psalm 50", "Isaiah 3-4", "Hebrews 11"], [5, 7, "Numbers 15", "Psalm 51", "Isaiah 5", "Hebrews 12"], [5, 8, "Numbers 16", "Psalm 52-54", "Isaiah 6", "Hebrews 13"], [5, 9, "Numbers 17-18", "Psalm 55", "Isaiah 7", "James 1"], [5, 10, "Numbers 19", "Psalm 56-57", "Isaiah 8:1-9:7", "James 2"], [5, 11, "Numbers 20", "Psalm 58-59", "Isaiah 9:8-10:4", "James 3"], [5, 12, "Numbers 21", "Psalm 60-61", "Isaiah 10:5-34", "James 4"], [5, 13, "Numbers 22", "Psalm 62-63", "Isaiah 11-12", "James 5"], [5, 14, "Numbers 23", "Psalm 64-65", "Isaiah 13", "1 Peter 1"], [5, 15, "Numbers 24", "Psalm 66-67", "Isaiah 14", "1 Peter 2"], [5, 16, "Numbers 25", "Psalm 68", "Isaiah 15", "1 Peter 3"], [5, 17, "Numbers 26", "Psalm 69", "Isaiah 16", "1 Peter 4"], [5, 18, "Numbers 27", "Psalm 70-71", "Isaiah 17-18", "1 Peter 5"], [5, 19, "Numbers 28", "Psalm 72", "Isaiah 19-20", "2 Peter 1"], [5, 20, "Numbers 29", "Psalm 73", "Isaiah 21", "2 Peter 2"], [5, 21, "Numbers 30", "Psalm 74", "Isaiah 22", "2 Peter 3"], [5, 22, "Numbers 31", "Psalm 75-76", "Isaiah 23", "1 John 1"], [5, 23, "Numbers 32", "Psalm 77", "Isaiah 24", "1 John 2"], [5, 24, "Numbers 33", "Psalm 78:1-39", "Isaiah 25", "1 John 3"], [5, 25, "Numbers 34", "Psalm 78:40-72", "Isaiah 26", "1 John 4"], [5, 26, "Numbers 35", "Psalm 79", "Isaiah 27", "1 John 5"], [5, 27, "Numbers 36", "Psalm 80", "Isaiah 28", "2 John 1"], [5, 28, "Deuteronomy 1", "Psalm 81-82", "Isaiah 29", "3 John 1"], [5, 29, "Deuteronomy 2", "Psalm 83-84", "Isaiah 30", "Jude 1"], [5, 30, "Deuteronomy 3", "Psalm 85", "Isaiah 31", "Revelation 1"], [5, 31, "Deuteronomy 4", "Psalm 86-87", "Isaiah 32", "Revelation 2"], [6, 1, "Deuteronomy 5", "Psalm 88", "Isaiah 33", "Revelation 3"], [6, 2, "Deuteronomy 6", "Psalm 89", "Isaiah 34", "Revelation 4"], [6, 3, "Deuteronomy 7", "Psalm 90", "Isaiah 35", "Revelation 5"], [6, 4, "Deuteronomy 8", "Psalm 91", "Isaiah 36", "Revelation 6"], [6, 5, "Deuteronomy 9", "Psalm 92-93", "Isaiah 37", "Revelation 7"], [6, 6, "Deuteronomy 10", "Psalm 94", "Isaiah 38", "Revelation 8"], [6, 7, "Deuteronomy 11", "Psalm 95-96", "Isaiah 39", "Revelation 9"], [6, 8, "Deuteronomy 12", "Psalm 97-98", "Isaiah 40", "Revelation 10"], [6, 9, "Deuteronomy 13-14", "Psalm 99-101", "Isaiah 41", "Revelation 11"], [6, 10, "Deuteronomy 15", "Psalm 102", "Isaiah 42", "Revelation 12"], [6, 11, "Deuteronomy 16", "Psalm 103", "Isaiah 43", "Revelation 13"], [6, 12, "Deuteronomy 17", "Psalm 104", "Isaiah 44", "Revelation 14"], [6, 13, "Deuteronomy 18", "Psalm 105", "Isaiah 45", "Revelation 15"], [6, 14, "Deuteronomy 19", "Psalm 106", "Isaiah 46", "Revelation 16"], [6, 15, "Deuteronomy 20", "Psalm 107", "Isaiah 47", "Revelation 17"], [6, 16, "Deuteronomy 21", "Psalm 108-109", "Isaiah 48", "Revelation 18"], [6, 17, "Deuteronomy 22", "Psalm 110-111", "Isaiah 49", "Revelation 19"], [6, 18, "Deuteronomy 23", "Psalm 112-113", "Isaiah 50", "Revelation 20"], [6, 19, "Deuteronomy 24", "Psalm 114-115", "Isaiah 51", "Revelation 21"], [6, 20, "Deuteronomy 25", "Psalm 116", "Isaiah 52", "Revelation 22"], [6, 21, "Deuteronomy 26", "Psalm 117-118", "Isaiah 53", "Matthew 1"], [6, 22, "Deuteronomy 27:1-28:19", "Psalm 119:1-24", "Isaiah 54", "Matthew 2"], [6, 23, "Deuteronomy 28:20-68", "Psalm 119:25-48", "Isaiah 55", "Matthew 3"], [6, 24, "Deuteronomy 29", "Psalm 119:49-72", "Isaiah 56", "Matthew 4"], [6, 25, "Deuteronomy 30", "Psalm 119:73-96", "Isaiah 57", "Matthew 5"], [6, 26, "Deuteronomy 31", "Psalm 119:97-120", "Isaiah 58", "Matthew 6"], [6, 27, "Deuteronomy 32", "Psalm 119:121-144", "Isaiah 59", "Matthew 7"], [6, 28, "Deuteronomy 33-34", "Psalm 119:145-176", "Isaiah 60", "Matthew 8"], [6, 29, "Joshua 1", "Psalm 120-122", "Isaiah 61", "Matthew 9"], [6, 30, "Joshua 2", "Psalm 123-125", "Isaiah 62", "Matthew 10"], [7, 1, "Joshua 3", "Psalm 126-128", "Isaiah 63", "Matthew 11"], [7, 2, "Joshua 4", "Psalm 129-131", "Isaiah 64", "Matthew 12"], [7, 3, "Joshua 5", "Psalm 132-134", "Isaiah 65", "Matthew 13"], [7, 4, "Joshua 6", "Psalm 135-136", "Isaiah 66", "Matthew 14"], [7, 5, "Joshua 7", "Psalm 137-138", "Jeremiah 1", "Matthew 15"], [7, 6, "Joshua 8", "Psalm 139", "Jeremiah 2", "Matthew 16"], [7, 7, "Joshua 9", "Psalm 140-141", "Jeremiah 3", "Matthew 17"], [7, 8, "Joshua 10", "Psalm 142-143", "Jeremiah 4", "Matthew 18"], [7, 9, "Joshua 11", "Psalm 144", "Jeremiah 5", "Matthew 19"], [7, 10, "Joshua 12-13", "Psalm 145", "Jeremiah 6", "Matthew 20"], [7, 11, "Joshua 14-15", "Psalm 146-147", "Jeremiah 7", "Matthew 21"], [7, 12, "Joshua 16-17", "Psalm 148", "Jeremiah 8", "Matthew 22"], [7, 13, "Joshua 18-19", "Psalm 149-150", "Jeremiah 9", "Matthew 23"], [7, 14, "Joshua 20-21", "Acts 1", "Jeremiah 10", "Matthew 24"], [7, 15, "Joshua 22", "Acts 2", "Jeremiah 11", "Matthew 25"], [7, 16, "Joshua 23", "Acts 3", "Jeremiah 12", "Matthew 26"], [7, 17, "Joshua 24", "Acts 4", "Jeremiah 13", "Matthew 27"], [7, 18, "Judges 1", "Acts 5", "Jeremiah 14", "Matthew 28"], [7, 19, "Judges 2", "Acts 6", "Jeremiah 15", "Mark 1"], [7, 20, "Judges 3", "Acts 7", "Jeremiah 16", "Mark 2"], [7, 21, "Judges 4", "Acts 8", "Jeremiah 17", "Mark 3"], [7, 22, "Judges 5", "Acts 9", "Jeremiah 18", "Mark 4"], [7, 23, "Judges 6", "Acts 10", "Jeremiah 19", "Mark 5"], [7, 24, "Judges 7", "Acts 11", "Jeremiah 20", "Mark 6"], [7, 25, "Judges 8", "Acts 12", "Jeremiah 21", "Mark 7"], [7, 26, "Judges 9", "Acts 13", "Jeremiah 22", "Mark 8"], [7, 27, "Judges 10", "Acts 14", "Jeremiah 23", "Mark 9"], [7, 28, "Judges 11", "Acts 15", "Jeremiah 24", "Mark 10"], [7, 29, "Judges 12", "Acts 16", "Jeremiah 25", "Mark 11"], [7, 30, "Judges 13", "Acts 17", "Jeremiah 26", "Mark 12"], [7, 31, "Judges 14", "Acts 18", "Jeremiah 27", "Mark 13"], [8, 1, "Judges 15", "Acts 19", "Jeremiah 28", "Mark 14"], [8, 2, "Judges 16", "Acts 20", "Jeremiah 29", "Mark 15"], [8, 3, "Judges 17", "Acts 21", "Jeremiah 30-31", "Mark 16"], [8, 4, "Judges 18", "Acts 22", "Jeremiah 32", "Psalm 1-2"], [8, 5, "Judges 19", "Acts 23", "Jeremiah 33", "Psalm 3-4"], [8, 6, "Judges 20", "Acts 24", "Jeremiah 34", "Psalm 5-6"], [8, 7, "Judges 21", "Acts 25", "Jeremiah 35", "Psalm 7-8"], [8, 8, "Ruth 1", "Acts 26", "Jeremiah 36&45", "Psalm 9"], [8, 9, "Ruth 2", "Acts 27", "Jeremiah 37", "Psalm 10"], [8, 10, "Ruth 3-4", "Acts 28", "Jeremiah 38", "Psalm 11-12"], [8, 11, "1 Samuel 1", "Romans 1", "Jeremiah 39", "Psalm 13-14"], [8, 12, "1 Samuel 2", "Romans 2", "Jeremiah 40", "Psalm 15-16"], [8, 13, "1 Samuel 3", "Romans 3", "Jeremiah 41", "Psalm 17"], [8, 14, "1 Samuel 4", "Romans 4", "Jeremiah 42", "Psalm 18"], [8, 15, "1 Samuel 5-6", "Romans 5", "Jeremiah 43", "Psalm 19"], [8, 16, "1 Samuel 7-8", "Romans 6", "Jeremiah 44", "Psalm 20-21"], [8, 17, "1 Samuel 9", "Romans 7", "Jeremiah 46", "Psalm 22"], [8, 18, "1 Samuel 10", "Romans 8", "Jeremiah 47", "Psalm 23-24"], [8, 19, "1 Samuel 11", "Romans 9", "Jeremiah 48", "Psalm 25"], [8, 20, "1 Samuel 12", "Romans 10", "Jeremiah 49", "Psalm 26-27"], [8, 21, "1 Samuel 13", "Romans 11", "Jeremiah 50", "Psalm 28-29"], [8, 22, "1 Samuel 14", "Romans 12", "Jeremiah 51", "Psalm 30"], [8, 23, "1 Samuel 15", "Romans 13", "Jeremiah 52", "Psalm 31"], [8, 24, "1 Samuel 16", "Romans 14", "Lamentations 1", "Psalm 32"], [8, 25, "1 Samuel 17", "Romans 15", "Lamentations 2", "Psalm 33"], [8, 26, "1 Samuel 18", "Romans 16", "Lamentations 3", "Psalm 34"], [8, 27, "1 Samuel 19", "1 Corinthians 1", "Lamentations 4", "Psalm 35"], [8, 28, "1 Samuel 20", "1 Corinthians 2", "Lamentations 5", "Psalm 36"], [8, 29, "1 Samuel 21-22", "1 Corinthians 3", "Ezekiel 1", "Psalm 37"], [8, 30, "1 Samuel 23", "1 Corinthians 4", "Ezekiel 2", "Psalm 38"], [8, 31, "1 Samuel 24", "1 Corinthians 5", "Ezekiel 3", "Psalm 39"], [9, 1, "1 Samuel 25", "1 Corinthians 6", "Ezekiel 4", "Psalm 40-41"], [9, 2, "1 Samuel 26", "1 Corinthians 7", "Ezekiel 5", "Psalm 42-43"], [9, 3, "1 Samuel 27", "1 Corinthians 8", "Ezekiel 6", "Psalm 44"], [9, 4, "1 Samuel 28", "1 Corinthians 9", "Ezekiel 7", "Psalm 45"], [9, 5, "1 Samuel 29-30", "1 Corinthians 10", "Ezekiel 8", "Psalm 46-47"], [9, 6, "1 Samuel 31", "1 Corinthians 11", "Ezekiel 9", "Psalm 48"], [9, 7, "2 Samuel 1", "1 Corinthians 12", "Ezekiel 10", "Psalm 49"], [9, 8, "2 Samuel 2", "1 Corinthians 13", "Ezekiel 11", "Psalm 50"], [9, 9, "2 Samuel 3", "1 Corinthians 14", "Ezekiel 12", "Psalm 51"], [9, 10, "2 Samuel 4-5", "1 Corinthians 15", "Ezekiel 13", "Psalm 52-54"], [9, 11, "2 Samuel 6", "1 Corinthians 16", "Ezekiel 14", "Psalm 55"], [9, 12, "2 Samuel 7", "2 Corinthians 1", "Ezekiel 15", "Psalm 56-57"], [9, 13, "2 Samuel 8-9", "2 Corinthians 2", "Ezekiel 16", "Psalm 58-59"], [9, 14, "2 Samuel 10", "2 Corinthians 3", "Ezekiel 17", "Psalm 60-61"], [9, 15, "2 Samuel 11", "2 Corinthians 4", "Ezekiel 18", "Psalm 62-63"], [9, 16, "2 Samuel 12", "2 Corinthians 5", "Ezekiel 19", "Psalm 64-65"], [9, 17, "2 Samuel 13", "2 Corinthians 6", "Ezekiel 20", "Psalm 66-67"], [9, 18, "2 Samuel 14", "2 Corinthians 7", "Ezekiel 21", "Psalm 68"], [9, 19, "2 Samuel 15", "2 Corinthians 8", "Ezekiel 22", "Psalm 69"], [9, 20, "2 Samuel 16", "2 Corinthians 9", "Ezekiel 23", "Psalm 70-71"], [9, 21, "2 Samuel 17", "2 Corinthians 10", "Ezekiel 24", "Psalm 72"], [9, 22, "2 Samuel 18", "2 Corinthians 11", "Ezekiel 25", "Psalm 73"], [9, 23, "2 Samuel 19", "2 Corinthians 12", "Ezekiel 26", "Psalm 74"], [9, 24, "2 Samuel 20", "2 Corinthians 13", "Ezekiel 27", "Psalm 75-76"], [9, 25, "2 Samuel 21", "Galatians 1", "Ezekiel 28", "Psalm 77"], [9, 26, "2 Samuel 22", "Galatians 2", "Ezekiel 29", "Psalm 78:1-39"], [9, 27, "2 Samuel 23", "Galatians 3", "Ezekiel 30", "Psalm 78:40-72"], [9, 28, "2 Samuel 24", "Galatians 4", "Ezekiel 31", "Psalm 79"], [9, 29, "1 Kings 1", "Galatians 5", "Ezekiel 32", "Psalm 80"], [9, 30, "1 Kings 2", "Galatians 6", "Ezekiel 33", "Psalm 81-82"], [10, 1, "1 Kings 3", "Ephesians 1", "Ezekiel 34", "Psalm 83-84"], [10, 2, "1 Kings 4-5", "Ephesians 2", "Ezekiel 35", "Psalm 85"], [10, 3, "1 Kings 6", "Ephesians 3", "Ezekiel 36", "Psalm 86"], [10, 4, "1 Kings 7", "Ephesians 4", "Ezekiel 37", "Psalm 87-88"], [10, 5, "1 Kings 8", "Ephesians 5", "Ezekiel 38", "Psalm 89"], [10, 6, "1 Kings 9", "Ephesians 6", "Ezekiel 39", "Psalm 90"], [10, 7, "1 Kings 10", "Philippians 1", "Ezekiel 40", "Psalm 91"], [10, 8, "1 Kings 11", "Philippians 2", "Ezekiel 41", "Psalm 92-93"], [10, 9, "1 Kings 12", "Philippians 3", "Ezekiel 42", "Psalm 94"], [10, 10, "1 Kings 13", "Philippians 4", "Ezekiel 43", "Psalm 95-96"], [10, 11, "1 Kings 14", "Colossians 1", "Ezekiel 44", "Psalm 97-98"], [10, 12, "1 Kings 15", "Colossians 2", "Ezekiel 45", "Psalm 99-101"], [10, 13, "1 Kings 16", "Colossians 3", "Ezekiel 46", "Psalm 102"], [10, 14, "1 Kings 17", "Colossians 4", "Ezekiel 47", "Psalm 103"], [10, 15, "1 Kings 18", "1 Thessalonians 1", "Ezekiel 48", "Psalm 104"], [10, 16, "1 Kings 19", "1 Thessalonians 2", "Daniel 1", "Psalm 105"], [10, 17, "1 Kings 20", "1 Thessalonians 3", "Daniel 2", "Psalm 106"], [10, 18, "1 Kings 21", "1 Thessalonians 4", "Daniel 3", "Psalm 107"], [10, 19, "1 Kings 22", "1 Thessalonians 5", "Daniel 4", "Psalm 108-109"], [10, 20, "2 Kings 1", "2 Thessalonians 1", "Daniel 5", "Psalm 110-111"], [10, 21, "2 Kings 2", "2 Thessalonians 2", "Daniel 6", "Psalm 112-113"], [10, 22, "2 Kings 3", "2 Thessalonians 3", "Daniel 7", "Psalm 114-115"], [10, 23, "2 Kings 4", "1 Timothy 1", "Daniel 8", "Psalm 116"], [10, 24, "2 Kings 5", "1 Timothy 2", "Daniel 9", "Psalm 117-118"], [10, 25, "2 Kings 6", "1 Timothy 3", "Daniel 10", "Psalm 119:1-24"], [10, 26, "2 Kings 7", "1 Timothy 4", "Daniel 11", "Psalm 119:25-48"], [10, 27, "2 Kings 8", "1 Timothy 5", "Daniel 12", "Psalm 119:49-72"], [10, 28, "2 Kings 9", "1 Timothy 6", "Hosea 1", "Psalm 119:73-96"], [10, 29, "2 Kings 10-11", "2 Timothy 1", "Hosea 2", "Psalm 119:97-120"], [10, 30, "2 Kings 12", "2 Timothy 2", "Hosea 3-4", "Psalm 119:121-144"], [10, 31, "2 Kings 13", "2 Timothy 3", "Hosea 5-6", "Psalm 119:145-176"], [11, 1, "2 Kings 14", "2 Timothy 4", "Hosea 7", "Psalm 120-122"], [11, 2, "2 Kings 15", "Titus 1", "Hosea 8", "Psalm 123-125"], [11, 3, "2 Kings 16", "Titus 2", "Hosea 9", "Psalm 126-128"], [11, 4, "2 Kings 17", "Titus 3", "Hosea 10", "Psalm 129-131"], [11, 5, "2 Kings 18", "Philemon 1", "Hosea 11", "Psalm 132-134"], [11, 6, "2 Kings 19", "Hebrews 1", "Hosea 12", "Psalm 135-136"], [11, 7, "2 Kings 20", "Hebrews 2", "Hosea 13", "Psalm 137-138"], [11, 8, "2 Kings 21", "Hebrews 3", "Hosea 14", "Psalm 139"], [11, 9, "2 Kings 22", "Hebrews 4", "Joel 1", "Psalm 140-141"], [11, 10, "2 Kings 23", "Hebrews 5", "Joel 2", "Psalm 142"], [11, 11, "2 Kings 24", "Hebrews 6", "Joel 3", "Psalm 143"], [11, 12, "2 Kings 25", "Hebrews 7", "Amos 1", "Psalm 144"], [11, 13, "1 Chronicles 1-2", "Hebrews 8", "Amos 2", "Psalm 145"], [11, 14, "1 Chronicles 3-4", "Hebrews 9", "Amos 3", "Psalm 146-147"], [11, 15, "1 Chronicles 5-6", "Hebrews 10", "Amos 4", "Psalm 148-150"], [11, 16, "1 Chronicles 7-8", "Hebrews 11", "Amos 5", "Luke 1:1-38"], [11, 17, "1 Chronicles 9-10", "Hebrews 12", "Amos 6", "Luke 1:39-80"], [11, 18, "1 Chronicles 11-12", "Hebrews 13", "Amos 7", "Luke 2"], [11, 19, "1 Chronicles 13-14", "James 1", "Amos 8", "Luke 3"], [11, 20, "1 Chronicles 15", "James 2", "Amos 9", "Luke 4"], [11, 21, "1 Chronicles 16", "James 3", "Obadiah 1", "Luke 5"], [11, 22, "1 Chronicles 17", "James 4", "Jonah 1", "Luke 6"], [11, 23, "1 Chronicles 18", "James 5", "Jonah 2", "Luke 7"], [11, 24, "1 Chronicles 19-20", "1 Peter 1", "Jonah 3", "Luke 8"], [11, 25, "1 Chronicles 21", "1 Peter 2", "Jonah 4", "Luke 9"], [11, 26, "1 Chronicles 22", "1 Peter 3", "Micah 1", "Luke 10"], [11, 27, "1 Chronicles 23", "1 Peter 4", "Micah 2", "Luke 11"], [11, 28, "1 Chronicles 24-25", "1 Peter 5", "Micah 3", "Luke 12"], [11, 29, "1 Chronicles 26-27", "2 Peter 1", "Micah 4", "Luke 13"], [11, 30, "1 Chronicles 28", "2 Peter 2", "Micah 5", "Luke 14"], [12, 1, "1 Chronicles 29", "2 Peter 3", "Micah 6", "Luke 15"], [12, 2, "2 Chronicles 1", "1 John 1", "Micah 7", "Luke 16"], [12, 3, "2 Chronicles 2", "1 John 2", "Nahum 1", "Luke 17"], [12, 4, "2 Chronicles 3-4", "1 John 3", "Nahum 2", "Luke 18"], [12, 5, "2 Chronicles 5:1-6:11", "1 John 4", "Nahum 3", "Luke 19"], [12, 6, "2 Chronicles 6:12-42", "1 John 5", "Habakkuk 1", "Luke 20"], [12, 7, "2 Chronicles 7", "2 John 1", "Habakkuk 2", "Luke 21"], [12, 8, "2 Chronicles 8", "3 John 1", "Habakkuk 3", "Luke 22"], [12, 9, "2 Chronicles 9", "Jude 1", "Zephaniah 1", "Luke 23"], [12, 10, "2 Chronicles 10", "Revelation 1", "Zephaniah 2", "Luke 24"], [12, 11, "2 Chronicles 11-12", "Revelation 2", "Zephaniah 3", "John 1"], [12, 12, "2 Chronicles 13", "Revelation 3", "Haggai 1", "John 2"], [12, 13, "2 Chronicles 14-15", "Revelation 4", "Haggai 2", "John 3"], [12, 14, "2 Chronicles 16", "Revelation 5", "Zechariah 1", "John 4"], [12, 15, "2 Chronicles 17", "Revelation 6", "Zechariah 2", "John 5"], [12, 16, "2 Chronicles 18", "Revelation 7", "Zechariah 3", "John 6"], [12, 17, "2 Chronicles 19-20", "Revelation 8", "Zechariah 4", "John 7"], [12, 18, "2 Chronicles 21", "Revelation 9", "Zechariah 5", "John 8"], [12, 19, "2 Chronicles 22-23", "Revelation 10", "Zechariah 6", "John 9"], [12, 20, "2 Chronicles 24", "Revelation 11", "Zechariah 7", "John 10"], [12, 21, "2 Chronicles 25", "Revelation 12", "Zechariah 8", "John 11"], [12, 22, "2 Chronicles 26", "Revelation 13", "Zechariah 9", "John 12"], [12, 23, "2 Chronicles 27-28", "Revelation 14", "Zechariah 10", "John 13"], [12, 24, "2 Chronicles 29", "Revelation 15", "Zechariah 11", "John 14"], [12, 25, "2 Chronicles 30", "Revelation 16", "Zechariah 12:1-13:1", "John 15"], [12, 26, "2 Chronicles 31", "Revelation 17", "Zechariah 13:2-9", "John 16"], [12, 27, "2 Chronicles 32", "Revelation 18", "Zechariah 14", "John 17"], [12, 28, "2 Chronicles 33", "Revelation 19", "Malachi 1", "John 18"], [12, 29, "2 Chronicles 34", "Revelation 20", "Malachi 2", "John 19"], [12, 30, "2 Chronicles 35", "Revelation 21", "Malachi 3", "John 20"], [12, 31, "2 Chronicles 36", "Revelation 22", "Malachi 4", "John 21"]];
+const months=["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+function findIndex(m,d){
+  for(let i=0;i<R.length;i++){if(R[i][0]===m&&R[i][1]===d)return i;}
+  return -1;
+}
+
+const now=new Date();
+const todayMonth=now.getMonth()+1;
+const todayDay=now.getDate();
+let todayIdx=findIndex(todayMonth,todayDay);
+if(todayIdx===-1) todayIdx=0;
+let currentIdx=todayIdx;
+
+function render(){
+  const r=R[currentIdx];
+  const m=r[0],d=r[1];
+  document.getElementById("dateDisplay").textContent=months[m-1]+" "+d;
+
+  const label=document.getElementById("todayLabel");
+  const btn=document.getElementById("returnToday");
+  if(currentIdx===todayIdx){
+    label.textContent="Today";
+    btn.style.visibility="hidden";
+  }else{
+    label.textContent="\u00a0";
+    btn.style.visibility="visible";
+  }
+
+  document.getElementById("familyReadings").innerHTML=r[2]+"<br>"+r[3];
+  document.getElementById("secretReadings").innerHTML=r[4]+"<br>"+r[5];
+}
+
+document.getElementById("prev").addEventListener("click",function(){
+  currentIdx=(currentIdx-1+R.length)%R.length;
+  render();
+});
+document.getElementById("next").addEventListener("click",function(){
+  currentIdx=(currentIdx+1)%R.length;
+  render();
+});
+document.getElementById("returnToday").addEventListener("click",function(){
+  currentIdx=todayIdx;
+  render();
+});
+
+render();
+
+(function(){
+  var d=localStorage.getItem("darkMode");
+  if(d==="true") document.body.classList.add("dark");
+  document.getElementById("darkToggle").addEventListener("click",function(){
+    document.body.classList.toggle("dark");
+    localStorage.setItem("darkMode",document.body.classList.contains("dark"));
+  });
+})();
+
+</script>
+
+</body>
+</html>
