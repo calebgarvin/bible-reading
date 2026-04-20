@@ -669,11 +669,11 @@ for(const row of rows){
     localStorage.setItem("darkMode",document.body.classList.contains("dark"));
   });
 
-  var bg=localStorage.getItem("bgOff");
-  if(bg==="true") document.body.classList.add("no-bg");
+  var bg=localStorage.getItem("bgOn");
+  if(bg!=="true") document.body.classList.add("no-bg");
   document.getElementById("bgToggle").addEventListener("click",function(){
     document.body.classList.toggle("no-bg");
-    localStorage.setItem("bgOff",document.body.classList.contains("no-bg"));
+    localStorage.setItem("bgOn",!document.body.classList.contains("no-bg"));
   });
 })();
 
