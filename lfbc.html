@@ -34,7 +34,24 @@
     background-color: #f5f0e8;
     padding: 1.75rem 1.75rem;
     border-radius: 10px;
+    position: relative;
   }
+
+  .ornament {
+    display: block;
+    width: 180px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 100%;
+    margin-bottom: 0.5rem;
+  }
+  .ornament-dark { display: none; }
+  body.dark .ornament-light { display: none; }
+  body.dark .ornament-dark { display: block; }
+
+  /* Hide ornament when background is on */
+  body:not(.no-bg) .ornament { display: none; }
 
   h1 {
     font-size: 1.25rem;
@@ -323,6 +340,8 @@
 <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button>
 
 <div class="container">
+  <img src="ornament_transparent.png" alt="" class="ornament ornament-light">
+  <img src="ornament_dark.png" alt="" class="ornament ornament-dark">
   <h1>Living Faith Baptist Church<br>2026 Chronological Bible Reading Plan</h1>
   <p class="subtitle">Daily Bible Reading</p>
   <div class="nav">
