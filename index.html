@@ -333,6 +333,17 @@
     stroke-linejoin: round;
   }
 
+  /* Mobile: keep the ornament in normal flow so it can't overflow off-screen */
+  @media (max-width: 480px) {
+    .ornament {
+      position: static;
+      transform: none;
+      bottom: auto;
+      width: 120px;
+      margin: 0 auto 0.2rem;
+    }
+  }
+
   /* Mobile: tighten spacing */
   @media (max-height: 750px) {
     body { padding: 1rem 1rem; }
